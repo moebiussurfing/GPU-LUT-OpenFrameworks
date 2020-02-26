@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+	//scene.setup();
+
     // Disable rectangle textures
     ofDisableArbTex();
     
@@ -56,6 +58,7 @@ void ofApp::setup(){
     // Load the shader
     lutFilter.load("lut_filter");
 
+	fbo.allocate(1920, 1080);
 }
 
 //--------------------------------------------------------------
@@ -63,19 +66,28 @@ void ofApp::update(){
     
     webCam.update();
 
+	fbo.begin();
+	ofClear(0, 0);
+	scene.drawAll();
+	fbo.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+
     lutFilter.begin();
     
-    lutFilter.setUniformTexture("tex", webCam.getTextureReference(), 0);
+	//lutFilter.setUniformTexture("tex", webCam.getTextureReference(), 0);
+	lutFilter.setUniformTexture("tex", fbo.getTextureReference(), 0);
+
     lutFilter.setUniformTexture("lutTexure", GL_TEXTURE_3D, texture3D, 1);
     lutFilter.setUniform1f("lutSize", LUTsize);
     lutFilter.setUniform2f("mouse", (float)mouseX/ofGetWidth(), (float)mouseY/ofGetHeight());
     
     plane.draw();
+
+
     lutFilter.end();
 
 }

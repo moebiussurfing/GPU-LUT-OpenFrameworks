@@ -13,10 +13,15 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxSceneTEST.h"
 
 class ofApp : public ofBaseApp{
 
 	public:
+		ofFbo fbo;
+
+		ofxSceneTEST scene;
+
 		void setup();
 		void update();
 		void draw();
