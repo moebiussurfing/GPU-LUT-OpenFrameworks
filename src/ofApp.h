@@ -1,3 +1,7 @@
+//modifications by moebiussurfing
+//https://github.com/moebiussurfing
+//using the code of HUBRIS mentioned below
+
 /*
  ---------------------------------------------
  GPU LUT IN OPENFRAMEWORKS
@@ -15,38 +19,67 @@
 #include "ofMain.h"
 #include "ofxSceneTEST.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
 
-	public:
-		ofFbo fbo;
+public:
 
-		ofxSceneTEST scene;
+	ofxPanel gui;
+	ofParameter<float> control1;
+	ofParameter<float> control2;
 
-		void setup();
-		void update();
-		void draw();
+	vector<string> lutPaths;
+	vector<string> lutNames;
 
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-		
-    // Shader
-    ofShader lutFilter;
-    ofPlanePrimitive plane;
-    
-    // LUT
-    GLuint texture3D;
-    int LUTsize = 32;
-    string LUTpath;
-    struct RGB { float r, g, b; };
-    
-    // Video
-    ofVideoGrabber  webCam;
-    
+	int lutIndex;
+	int numLuts;
+
+	ofxSceneTEST scene;
+	void setupLUT(std::string s);
+	void setup();
+	void setupFiles();
+
+	void update();
+	void draw();
+
+	void keyPressed(int key);
+	void keyReleased(int key);
+	void mouseMoved(int x, int y);
+	void mouseDragged(int x, int y, int button);
+	void mousePressed(int x, int y, int button);
+	void mouseReleased(int x, int y, int button);
+	void windowResized(int w, int h);
+	void dragEvent(ofDragInfo dragInfo);
+	void gotMessage(ofMessage msg);
+
+	//Shader
+	ofShader lutFilter;
+	ofPlanePrimitive plane;
+
+	//LUT
+	GLuint texture3D;
+	int LUTsize = 32;
+	string LUTpath;
+	string LUTname;
+	struct RGB { float r, g, b; };
+
+	int LUT3dSize;// = 32;//most common
+
+	ofFbo fbo;
+
+	//vector< ofxGpuLut> luts;
+	//ofImage lutImg;
+	//ofVideoGrabber video;
+	//bool isThumbnailView;
+	//string description;
+	//float thumbnailWidth, thumbnailHeight;
+	//int numCols;
+	//int numRows;
+	//ofImage image;
+
+	//struct RGB { float r, g, b; };
+	//vector<RGB> LUT;
+	
+	////Video
+	//ofVideoGrabber  webCam;
+	//string filename;
 };
